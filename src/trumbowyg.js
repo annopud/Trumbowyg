@@ -197,9 +197,9 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
     // @param: editorElem is the DOM element
     var Trumbowyg = function (editorElem, options) {
         var t = this,
-            trumbowygIconsId = 'trumbowyg-icons',
-            $trumbowyg = $.trumbowyg;
-
+        trumbowygIconsId = 'trumbowyg-icons',
+        $trumbowyg = $.trumbowyg;
+        $trumbowyg.svgAbsoluteUseHref = options.svgAbsoluteUseHref;
         // Get the document of the element. It use to makes the plugin
         // compatible on iframes.
         t.doc = editorElem.ownerDocument || document;
@@ -284,7 +284,6 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
         t.btnsDef = {
             viewHTML: {
                 fn: 'toggle',
-                class: 'trumbowyg-not-disable',
             },
 
             undo: {
@@ -1544,9 +1543,8 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
             var $modal = $('<div/>', {
                 class: prefix + 'modal ' + prefix + 'fixed-top'
             }).css({
-                top: t.$box.offset().top + t.$btnPane.height(),
-                zIndex: 99999
-            }).appendTo($(t.doc.body));
+
+            }).appendTo($(t.$btnPane));
 
             // Click on overlay close modal by cancelling them
             t.$overlay.one('click', function () {
@@ -1626,7 +1624,7 @@ Object.defineProperty(jQuery.trumbowyg, 'defaultOptions', {
                 prefix = t.o.prefix;
 
             return $('<button/>', {
-                class: prefix + 'modal-button ' + prefix + 'modal-' + n,
+                class: prefix + 'modal-button trumbowyg-not-disable ' + prefix + 'modal-' + n,
                 type: n,
                 text: t.lang[n] || n
             }).appendTo($('form', $modal));
